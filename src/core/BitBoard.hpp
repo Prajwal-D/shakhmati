@@ -26,17 +26,18 @@ struct AllBoards
 
 };
 
-struct FullBoard
+struct BoardState
 {
-    FullBoard()
-    :curBoard(),castling(0x0F)
+    BoardState()
+    :curBoard(),castling(0x0F),whiteTurn(true), halfMoves(0)
     {};
 
     AllBoards curBoard;
     uint8_t castling; //initialised as 0000 1111, where top 4 bits are ignored
                       //1111 goes left to right as white king-side, white queen-side, black king-side, black queen-side
-    
-
+    bool whiteTurn;
+    int halfMoves;
+    // TODO implement enpassant
 
     
 };
