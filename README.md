@@ -1,0 +1,2 @@
+# shakhmati
+UCI compliant chess 
