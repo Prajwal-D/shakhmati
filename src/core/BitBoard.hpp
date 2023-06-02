@@ -41,6 +41,4 @@ struct FullBoard
     
 };
 
-
-
 #endif
