@@ -8,7 +8,6 @@
 #include "Move.hpp"
 namespace Debug
 {
-    #define STARTING_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
     void print_bb(BitBoard board, int board_center,bool mirrored=true)
     {
         std::string output{},someLine{};
@@ -20,7 +19,7 @@ namespace Debug
                 {
                     someLine = mirrored ?   someLine + "X " : "X " + someLine;
                 }
-                else if((((board >> (col + row*8)))&1ull)== 1ull)
+                else if(((board >> (col + row*8)))&1ull)
                 {
                     someLine = mirrored ?   someLine + "1 " : "1 " + someLine ;
                 }
@@ -44,7 +43,7 @@ namespace Debug
         {
             for(int col{0}; col < 8;++col)
             {
-                if((((board >> (col + row*8)))&1ull) == 1ull)
+                if(((board >> (col + row*8)))&1ull)
                 {
                     someLine = mirrored ?   someLine + "1 " : "1 " + someLine;
                 }

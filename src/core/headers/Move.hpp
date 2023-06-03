@@ -11,6 +11,9 @@ from right to left:
 6 bits - end index
 3 bits - piece type 
 1 bit  - colour (white = 1/black = 0)
+E.g. 
+ 0      | 000        | 000000     | 000000
+ colour   piece type   end index    start index
 */
 namespace Moves
 {
