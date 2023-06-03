@@ -2,10 +2,12 @@
 #define MAGICCONSTANTS_HPP
 
 #include "BitBoard.hpp"
+typedef uint32_t PieceType; 
 namespace Magics
 {
     [[nodiscard]] constexpr BitBoard PopLSB(BitBoard board){return board & (board-1);}
 
+    //consts for move gen
     constexpr BitBoard FILE_A = 0x0101010101010101;
     constexpr BitBoard FILE_B = FILE_A << 1;
     constexpr BitBoard FILE_C = FILE_A << 2;
@@ -23,5 +25,20 @@ namespace Magics
     constexpr BitBoard RANK_6 = RANK_1 << 40; 
     constexpr BitBoard RANK_7 = RANK_1 << 48;
     constexpr BitBoard RANK_8 = RANK_1 << 56;
+
+    //constants for the move recording system
+    constexpr PieceType KING         = 0x01u;
+    constexpr PieceType QUEEN        = 0x02u;
+    constexpr PieceType BISHOP       = 0x03u;
+    constexpr PieceType KNIGHT       = 0x04u;
+    constexpr PieceType ROOK         = 0x05u;
+    constexpr PieceType PAWN         = 0x06u;
+    constexpr uint32_t START_SQ_MASK    = 0x0000003F;
+    constexpr uint32_t END_SQ_MASK      = 0x00000FC0;
+    constexpr uint32_t PIECE_TYPE_MASK  = 0x00007000;
+    constexpr uint32_t COLOUR_MASK     = 0x00008000;
+    constexpr uint16_t END_SQ_SHIFT     = 6;
+    constexpr uint16_t PIECE_TYPE_SHIFT = 12;
+    constexpr uint16_t COLOUR_SHIFT   = 15;
 }
 #endif 

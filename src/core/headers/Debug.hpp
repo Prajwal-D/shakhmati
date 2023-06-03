@@ -5,6 +5,7 @@
 #include <string_view>
 #include <iostream>
 #include <bitset>
+#include "Move.hpp"
 namespace Debug
 {
     #define STARTING_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
@@ -87,6 +88,39 @@ namespace Debug
         print_bb(board.blackRooks,true);
         std::cout << "bp" << std::endl;
         print_bb(board.blackPawns,true);
+    }
+    std::string piece_type_to_str(PieceType piece)
+    {
+        switch (piece)
+        {
+        case Magics::KING:
+            return "King";
+        case Magics::QUEEN:
+            return "Queen";
+        case Magics::BISHOP:
+            return "Bishop";
+        case Magics::KNIGHT:
+            return "Knight";
+        case Magics::ROOK:
+            return "Rook";
+        case Magics::PAWN:
+            return "Pawn";
+        default:
+            return "Error with piece type to string";
+        }
+    }
+    void print_encoded_move_str(Move move)
+    {
+        std::string move_str{""};
+        move_str += "The start index is: " + std::to_string(move & Magics::START_SQ_MASK) + "\n";
+        move_str += "The end index is: " + std::to_string((move & Magics::END_SQ_MASK) >> Magics::END_SQ_SHIFT) + "\n";
+        move_str += "THe piece moved was: " + piece_type_to_str((move & Magics::PIECE_TYPE_MASK) >> Magics::PIECE_TYPE_SHIFT) + "\n";
+        move_str += (((move & Magics::COLOUR_MASK) >> Magics::COLOUR_SHIFT) == 1) ? "The piece was white" : "The piece was black";
+        std::cout << move_str;
+    }
+    void print_encoded_move_bin(Move move)
+    {
+        std::cout << std::bitset<16>(move) << std::endl;
     }
 }
 #endif

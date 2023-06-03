@@ -3,12 +3,13 @@ project(Shakhmati LANGUAGES CXX)
 
 file(GLOB_RECURSE MY_SOURCES "src/**.cpp")
 
+if(CMAKE_CXX_FLAGS_DEBUG)
+    set_source_files_properties(${MY_SOURCES} PROPERTIES COMPILE_OPTIONS "-std=c++20;-g;-O0;-Wall;-Wextra;-pedantic;-save-temps")
+else()
+    set_source_files_properties(${MY_SOURCES} PROPERTIES COMPILE_OPTIONS "-std=c++20;-O3;-march=native;-mtune=generic;-save-temps")
+endif()
+
 add_executable(Shakhmati ${MY_SOURCES})
 
-if(CMAKE_CXX_FLAGS_DEBUG)
-    target_compile_options(Shakhmati PUBLIC -std=c++20 -O3 -march=native -mtune=generic)
-else()
-    target_compile_options(Shakhmati PUBLIC -std=c++20 -g -O0 -Wall -Wextra -pedantic -save-temps)
-endif()
 
 install(TARGETS Shakhmati)
