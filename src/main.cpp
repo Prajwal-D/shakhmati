@@ -18,7 +18,7 @@ int main(void)
     Debug::print_bb(MoveGen::BLACK_PIECES);
     std::cout << __builtin_ctzll(MoveGen::BLACK_PIECES) << std::endl;
     
-    std::vector<Move> PossibleMoves = MoveGen::white_pawn_moves(BitBoard(0x00'00'00'02'00'00'00'00),BitBoard(0x00'00'01'00'00'00'00'00));
+    const std::vector<Move> PossibleMoves = MoveGen::white_pawn_moves(BitBoard(0x00'00'00'02'00'00'00'00),BitBoard(0x00'00'01'00'00'00'00'00));
     for (const Move& i : PossibleMoves)
     {
         Debug::print_encoded_move_str(i);
