@@ -21,7 +21,7 @@ std::vector<Move> MoveGen::white_pawn_moves(BitBoard pawns,BitBoard en_pesant_ta
         pawn_move = (pawns << 8) & EMPTY; 
         for(int index = __builtin_ctzll(pawns);index< 64;++index)
         {
-            if (((pawn_move >> index) & 1) == 1)
+            if ((pawn_move >> index) & 1)
             {
                 possible_moves.push_back(Moves::encode_move((index-8),index,Magics::PAWN,1));
             }
@@ -30,7 +30,7 @@ std::vector<Move> MoveGen::white_pawn_moves(BitBoard pawns,BitBoard en_pesant_ta
         pawn_move = (pawns << 16) & EMPTY & (EMPTY << 8) & Magics::RANK_4; 
         for(int index = __builtin_ctzll(pawns);index< 64;++index)
         {
-            if (((pawn_move >> index) & 1) == 1)
+            if ((pawn_move >> index) & 1)
             {
                 possible_moves.push_back(Moves::encode_move((index-16),index,Magics::PAWN,1));
             }
@@ -39,7 +39,7 @@ std::vector<Move> MoveGen::white_pawn_moves(BitBoard pawns,BitBoard en_pesant_ta
         pawn_move = (pawns << 7) & BLACK_PIECES & ~Magics::FILE_H;
         for(int index = __builtin_ctzll(pawns);index< 64;++index)
         {
-            if (((pawn_move >> index) & 1) == 1)
+            if ((pawn_move >> index) & 1)
             {
                 possible_moves.push_back(Moves::encode_move((index-7),index,Magics::PAWN,1));
             }
@@ -48,13 +48,13 @@ std::vector<Move> MoveGen::white_pawn_moves(BitBoard pawns,BitBoard en_pesant_ta
         pawn_move = (pawns << 9) & BLACK_PIECES & ~Magics::FILE_A;
         for(int index = __builtin_ctzll(pawns);index< 64;++index)
         {
-            if (((pawn_move >> index) & 1) == 1)
+            if ((pawn_move >> index) & 1)
             {
                 possible_moves.push_back(Moves::encode_move((index-9),index,Magics::PAWN,1));
             }
         }
         //generating the en_pesant_move
-        if(en_pesant_target_sq == -1)
+        if(!en_pesant_target_sq)
             return possible_moves;
         pawn_move = ((pawns << 9) & ~Magics::FILE_A);
         pawn_move &= 1ull << en_pesant_target_sq;
