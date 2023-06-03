@@ -26,11 +26,6 @@ struct AllBoards
     BitBoard blackPawns;
 
 };
-enum class EP:BitBoard 
-{
-    
-
-};
 
 struct BoardState
 {
@@ -46,8 +41,6 @@ struct BoardState
     bool whiteTurn;
     int halfMoves;
     BitBoard enPassant;
-    // TODO implement enpassant
-
     
 };
 
