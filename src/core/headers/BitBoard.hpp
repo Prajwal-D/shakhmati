@@ -13,8 +13,10 @@ struct AllBoards
 {
     constexpr AllBoards():
     whiteKings(0ull), whiteQueens(0ull), whiteRooks(0ull), whiteBishops(0ull), whiteKnights(0ull), whitePawns(0ull),
-    blackKings(0ull), blackQueens(0ull), blackRooks(0ull), blackBishops(0ull), blackKnights(0ull), blackPawns(0ull)
+    blackKings(0ull), blackQueens(0ull), blackRooks(0ull), blackBishops(0ull), blackKnights(0ull), blackPawns(0ull),
+    TESTING_ALL_BOARD(0ull)
     {}
+    void update_full_board();
     BitBoard whiteKings;
     BitBoard whiteQueens;
     BitBoard whiteRooks;
@@ -28,6 +30,8 @@ struct AllBoards
     BitBoard blackBishops;
     BitBoard blackKnights;
     BitBoard blackPawns;
+
+    BitBoard TESTING_ALL_BOARD;
 
 };
 
