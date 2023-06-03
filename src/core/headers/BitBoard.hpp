@@ -2,6 +2,10 @@
 #define BITBOARD_HPP
 #include <cstdint>
 #include <string_view>
+#include <iostream>
+#include <cstdio>
+#include <vector>
+#include <sstream>
 
 typedef uint64_t BitBoard;
 #define STARTING_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
@@ -33,7 +37,9 @@ struct BoardState
     curBoard(),castling(0x0F),whiteTurn(true), halfMoves(0)
     {};
     //You should add [[nodiscard]] specifier to this function 
-    bool fen_importer(std::string_view fen);
+    std::vector<std::string> split(const std::string &stringToSplit, char delim);
+    bool fen_importer(std::string fen);
+    
 
     AllBoards curBoard;
     uint8_t castling; //initialised as 0000 1111, where top 4 bits are ignored

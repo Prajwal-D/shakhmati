@@ -12,7 +12,7 @@ void MoveGen::update_constants(const AllBoards& b)
     BLACK_PIECES = b.blackKings | b.blackQueens | b.blackBishops | b.blackKnights | b.blackRooks | b.blackPawns;
     EMPTY = ~(WHITE_PIECES | BLACK_PIECES);
 }
-std::vector<Move> MoveGen::white_pawn_moves(BitBoard pawns,BitBoard en_pesant_target_sq)
+std::vector<Move> MoveGen::white_pawn_moves(BitBoard pawns,BitBoard en_passant_target_sq)
     {
         std::vector<Move> possible_moves{};
         BitBoard pawn_move{0};
@@ -53,23 +53,23 @@ std::vector<Move> MoveGen::white_pawn_moves(BitBoard pawns,BitBoard en_pesant_ta
                 possible_moves.push_back(Moves::encode_move((index-9),index,Magics::PAWN,1));
             }
         }
-        //generating the en_pesant_move
-        if(en_pesant_target_sq == -1)
+        //generating the en_passant_move
+        if(en_passant_target_sq == -1)
             return possible_moves;
         pawn_move = ((pawns << 9) & ~Magics::FILE_A);
-        pawn_move &= 1ull << en_pesant_target_sq;
+        pawn_move &= 1ull << en_passant_target_sq;
         if(pawn_move)
         {
-            const int en_pesant_index = __builtin_ctzll(pawn_move);
-            possible_moves.push_back(Moves::encode_move(en_pesant_index-9,en_pesant_index,Magics::PAWN,1));
+            const int en_passant_index = __builtin_ctzll(pawn_move);
+            possible_moves.push_back(Moves::encode_move(en_passant_index-9,en_passant_index,Magics::PAWN,1));
             return possible_moves;
         }
         pawn_move = ((pawns << 7) & ~Magics::FILE_H);
-        pawn_move &= 1ull << en_pesant_target_sq;
+        pawn_move &= 1ull << en_passant_target_sq;
         if(pawn_move)
         {
-            const int en_pesant_index = __builtin_ctzll(pawn_move);
-            possible_moves.push_back(Moves::encode_move(en_pesant_index-7,en_pesant_index,Magics::PAWN,1));
+            const int en_passant_index = __builtin_ctzll(pawn_move);
+            possible_moves.push_back(Moves::encode_move(en_passant_index-7,en_passant_index,Magics::PAWN,1));
         }
         return possible_moves;
     }
