@@ -26,20 +26,63 @@ bool BoardState::fen_importer(std::string fen)
     int curRank = 8;
     for (std::string i:rankSections)
     {
-      int curPosInString = 0;
-      int curFile = 0;
-      while(curPosInString < i.size()){
-        char curChar = i.at(curPosInString);
-        if(std::isdigit(curChar)){
-            curFile += (curChar - '0') - 1;
-        } 
+        int curPosInString = 0;
+        int curFile = 0;
         
-        curPosInString++;
-        curFile++;
-      }  
-    }
-    
-    
+        while(curPosInString < i.size()){
+            char curChar = i.at(curPosInString);
+            if(std::isdigit(curChar)){
+                curFile += (curChar - '0') - 1;
+            }
+            else{
+                switch (curChar){
+                case('p'):
+                    curBoard.blackPawns |= BitBoard(1) << ((curRank * 7) + curFile);
+                    break;
+                case('n'):
+                    curBoard.blackKnights |= BitBoard(1) << ((curRank * 7) + curFile);
+                    break;
+                case('b'):
+                    curBoard.blackBishops |= BitBoard(1) << ((curRank * 7) + curFile);
+                    break;
+                case('r'):
+                    curBoard.blackRooks |= BitBoard(1) << ((curRank * 7) + curFile);
+                    break;
+                case('q'):
+                    curBoard.blackQueens |= BitBoard(1) << ((curRank * 7) + curFile);
+                    break;
+                case('k'):
+                    curBoard.blackKings |= BitBoard(1) << ((curRank * 7) + curFile);
+                    break;
+                case('P'):
+                    curBoard.whitePawns |= BitBoard(1) << ((curRank * 7) + curFile);
+                    break;
+                case('N'):
+                    curBoard.whiteKnights |= BitBoard(1) << ((curRank * 7) + curFile);
+                    break;
+                case('B'):
+                    curBoard.whiteBishops |= BitBoard(1) << ((curRank * 7) + curFile);
+                    break;
+                case('R'):
+                    curBoard.whiteRooks |= BitBoard(1) << ((curRank * 7) + curFile);
+                    break;
+                case('Q'):
+                    curBoard.whiteQueens |= BitBoard(1) << ((curRank * 7) + curFile);
+                    break;
+                case('K'):
+                    curBoard.whiteKings |= BitBoard(1) << ((curRank * 7) + curFile);
+                    break;
+                default:
+                    return false;
+                }
+            } 
+            curPosInString++;
+            curFile++;
+        }
+        curRank--;  
+    }    
     return true;
+
+    
 
 };
