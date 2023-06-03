@@ -6,7 +6,7 @@
 struct Move
 {
     Move()=delete;
-    Move(uint8_t start,uint8_t target): startingSquare(startingSquare),targetSqaure(target){}
+    explicit Move(uint8_t start,uint8_t target): startingSquare(startingSquare),targetSqaure(target){}
     const uint8_t startingSquare;
     const uint8_t targetSqaure;
 };

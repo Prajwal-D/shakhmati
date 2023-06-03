@@ -4,7 +4,7 @@
 #include "BitBoard.hpp"
 namespace Magics
 {
-    constexpr BitBoard PopLSB(BitBoard board){return board & (board-1);}
+    [[nodiscard]] constexpr BitBoard PopLSB(BitBoard board){return board & (board-1);}
 
     constexpr BitBoard FILE_A = 0x0101010101010101;
     constexpr BitBoard FILE_B = FILE_A << 1;

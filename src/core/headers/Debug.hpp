@@ -5,14 +5,15 @@
 #include <string_view>
 #include <iostream>
 #include <bitset>
-namespace Debug{
+namespace Debug
+{
     #define STARTING_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
     void print_bb(BitBoard board, int board_center,bool mirrored=true)
     {
         std::string output{},someLine{};
-        for(int row = 0; row < 8; ++row)
+        for(int row{0}; row < 8; ++row)
         {
-            for(int col = 0; col < 8;++col)
+            for(int col{0}; col < 8;++col)
             {
                 if((col + row*8) == board_center)
                 {
@@ -38,9 +39,9 @@ namespace Debug{
     void print_bb(BitBoard board, bool mirrored=true)
     {
         std::string output{},someLine{};
-        for(int row = 0; row < 8; ++row)
+        for(int row{0}; row < 8; ++row)
         {
-            for(int col = 0; col < 8;++col)
+            for(int col{0}; col < 8;++col)
             {
                 if((((board >> (col + row*8)))&1ull) == 1ull)
                 {
@@ -59,7 +60,8 @@ namespace Debug{
         output += mirrored ? "A B C D E F G H" : "H G F E D C B A";
         std::cout << output << std::endl;
     }
-    void print_entire_board(const AllBoards& board){
+    void print_entire_board(const AllBoards& board)
+    {
         std::cout << "wk" << std::endl;
         print_bb(board.whiteKings,true);
         std::cout << "wq" << std::endl;
