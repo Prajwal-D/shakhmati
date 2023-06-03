@@ -23,7 +23,7 @@ bool BoardState::fen_importer(std::string fen)
         return false;
     }
 
-    int curRank = 8;
+    int curRank = 7;
     for (std::string i:rankSections)
     {
         int curPosInString = 0;
@@ -37,40 +37,40 @@ bool BoardState::fen_importer(std::string fen)
             else{
                 switch (curChar){
                 case('p'):
-                    curBoard.blackPawns |= BitBoard(1) << ((curRank * 7) + curFile);
+                    curBoard.blackPawns |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('n'):
-                    curBoard.blackKnights |= BitBoard(1) << ((curRank * 7) + curFile);
+                    curBoard.blackKnights |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('b'):
-                    curBoard.blackBishops |= BitBoard(1) << ((curRank * 7) + curFile);
+                    curBoard.blackBishops |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('r'):
-                    curBoard.blackRooks |= BitBoard(1) << ((curRank * 7) + curFile);
+                    curBoard.blackRooks |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('q'):
-                    curBoard.blackQueens |= BitBoard(1) << ((curRank * 7) + curFile);
+                    curBoard.blackQueens |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('k'):
-                    curBoard.blackKings |= BitBoard(1) << ((curRank * 7) + curFile);
+                    curBoard.blackKings |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('P'):
-                    curBoard.whitePawns |= BitBoard(1) << ((curRank * 7) + curFile);
+                    curBoard.whitePawns |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('N'):
-                    curBoard.whiteKnights |= BitBoard(1) << ((curRank * 7) + curFile);
+                    curBoard.whiteKnights |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('B'):
-                    curBoard.whiteBishops |= BitBoard(1) << ((curRank * 7) + curFile);
+                    curBoard.whiteBishops |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('R'):
-                    curBoard.whiteRooks |= BitBoard(1) << ((curRank * 7) + curFile);
+                    curBoard.whiteRooks |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('Q'):
-                    curBoard.whiteQueens |= BitBoard(1) << ((curRank * 7) + curFile);
+                    curBoard.whiteQueens |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('K'):
-                    curBoard.whiteKings |= BitBoard(1) << ((curRank * 7) + curFile);
+                    curBoard.whiteKings |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 default:
                     return false;
@@ -83,6 +83,8 @@ bool BoardState::fen_importer(std::string fen)
     }    
     return true;
 
-    
-
 };
+
+void AllBoards::update_full_board(){
+    TESTING_ALL_BOARD = whiteKings | whiteQueens | whiteBishops | whiteKnights | whiteRooks | whitePawns | blackKings | blackQueens | blackBishops | blackKnights | blackRooks | blackPawns;
+}
