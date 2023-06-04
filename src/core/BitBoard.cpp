@@ -1,6 +1,7 @@
 #include "headers/BitBoard.hpp"
 
-std::vector<std::string> BoardState::split(const std::string &stringToSplit, char delim) {
+std::vector<std::string> BoardState::split(const std::string &stringToSplit, char delim) 
+{
     std::vector<std::string> result;
     std::stringstream ss (stringToSplit);
     std::string item;
@@ -10,7 +11,6 @@ std::vector<std::string> BoardState::split(const std::string &stringToSplit, cha
     }
     return result;
 }   
-
 bool BoardState::fen_importer(std::string fen)
 {
     std::vector<std::string> fenSections = split(fen, ' ');  
@@ -85,6 +85,7 @@ bool BoardState::fen_importer(std::string fen)
 
 };
 
-void AllBoards::update_full_board(){
+void AllBoards::update_full_board()
+{
     TESTING_ALL_BOARD = whiteKings | whiteQueens | whiteBishops | whiteKnights | whiteRooks | whitePawns | blackKings | blackQueens | blackBishops | blackKnights | blackRooks | blackPawns;
 }

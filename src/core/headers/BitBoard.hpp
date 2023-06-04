@@ -9,6 +9,10 @@
 
 typedef uint64_t BitBoard;
 #define STARTING_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+
+template<typename T>
+constexpr BitBoard index_to_bb(T index){return 1ull << static_cast<unsigned>(index);}
+
 struct AllBoards
 {
     constexpr AllBoards():
@@ -42,6 +46,8 @@ struct BoardState
     {};
     //You should add [[nodiscard]] specifier to this function 
     std::vector<std::string> split(const std::string &stringToSplit, char delim);
+    //I have discovered an issue with the fen_importer, if i load 2 FENs, it will keep the previous board state and or the
+    //new board positions ontop. you should reset board values before writing the new fen data to board
     bool fen_importer(std::string fen);
     
 

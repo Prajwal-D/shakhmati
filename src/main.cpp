@@ -3,6 +3,7 @@
 #include "core/headers/BitBoard.hpp"
 #include "core/headers/MoveGen.hpp"
 #include "core/headers/MagicConstants.hpp"
+#include "core/headers/Testing.hpp"
 int main(void)
 {
     /*
@@ -24,11 +25,12 @@ int main(void)
     //     Debug::print_encoded_move_str(i);
     // }
     
-    BoardState curState;
-    curState.fen_importer("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2");
-    Debug::print_entire_board(curState.curBoard);
-    curState.curBoard.update_full_board();
-    Debug::print_bb(curState.curBoard.TESTING_ALL_BOARD);
-    
+    // BoardState curState;
+    // curState.fen_importer("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2");
+    // Debug::print_entire_board(curState.curBoard);
+    // curState.curBoard.update_full_board();
+    // Debug::print_bb(curState.curBoard.TESTING_ALL_BOARD);
+    Testing::RunTests();
+
     return 0;
 }

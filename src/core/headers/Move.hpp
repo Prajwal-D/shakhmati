@@ -2,7 +2,7 @@
 #define MOVE_HPP
 #include <cstdint>
 #include "MagicConstants.hpp"
-
+#include <algorithm>
 typedef uint16_t Move;
 /*
 Move storage: 
@@ -15,6 +15,17 @@ E.g.
  0      | 000        | 000000     | 000000
  colour   piece type   end index    start index
 */
+constexpr bool operator==(std::vector<Move> v1, std::vector<Move> v2)
+{
+    if(v1.size() != v2.size()) return false;
+    std::sort(v1.begin(),v1.end());
+    std::sort(v2.begin(),v2.end());
+    for(std::size_t i = 0; i < v1.size();++i)
+    {
+        if(v1.at(i) != v2.at(i)) return false;
+    }
+    return true;
+}
 namespace Moves
 {
     [[nodiscard]] constexpr Move encode_move(const int start_index, const int target_index,const int piece_type,const bool is_white)
