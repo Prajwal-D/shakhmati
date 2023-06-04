@@ -13,6 +13,7 @@ namespace MoveGen
     void init_MoveGen();
     void update_constants(const AllBoards& b);
     std::vector<Move> white_pawn_moves(BitBoard pawns,BitBoard en_passant_target_sq);
+    std::vector<Move> black_pawn_moves(BitBoard pawns,BitBoard en_passant_target_sq);
     
 }
 

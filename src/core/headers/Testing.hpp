@@ -21,86 +21,90 @@
 #define TESTFEN9 "R7/P5k1/8/8/8/6P1/6K1/r7 w - - 0 1" //another pawn endgame with 1 possible pawn moves for white
 #define TESTFEN10 "rnbq1rk1/pp2ppbp/6p1/2pp4/2PPnB2/2N1PN2/PP3PPP/R2QKB1R w KQ - 0 8" //very complicated position taken from queens gambit opening with many possible white pawn moves
   
+//black pawn move gen tests
+#define TESTFEN11 "8/5p2/8/8/8/8/8/8 w - - 0 1"
+
 #define RUN_MOVE_GEN_TEST(testNum, moveVec1, moveVec2)      std::cout <<  "Test number " << (testNum) << " has " << (((moveVec1) == (moveVec2)) ? "PASSED" : "FAILED") << std::endl; \
                                                             if(!((moveVec1) == (moveVec2))) \
                                                             { \
-                                                            std::cout << "\nTest " << (testNum) << " contents: " << std::endl;\
-                                                            std::cout << "Move vector 1 contents: " << std::endl; \
-                                                            for(const Move& i : moveVec1){ Debug::print_encoded_move_str(i); std::cout << std::endl;} \
-                                                            std::cout << "\nMove vector 2 contents: " << std::endl; \
-                                                            for(const Move& i : moveVec2){ Debug::print_encoded_move_str(i); std::cout << std::endl;}; \
+                                                                std::cout << "\nTest " << (testNum) << " contents: " << std::endl;\
+                                                                std::cout << "Move vector 1 contents: " << std::endl; \
+                                                                for(const Move& i : moveVec1){ Debug::print_encoded_move_str(i); std::cout << std::endl;} \
+                                                                std::cout << "\nMove vector 2 contents: " << std::endl; \
+                                                                for(const Move& i : moveVec2){ Debug::print_encoded_move_str(i); std::cout << std::endl;}; \
                                                             }
+
+#define SHORTEND_MOVE_GEN_TEST(testNum, fen, moveVec1, moveVec2)    instance = BoardState(); \
+                                                                    instance.fen_importer((fen)); \
+                                                                    MoveGen::update_constants(instance.curBoard); \
+                                                                    RUN_MOVE_GEN_TEST((testNum),(moveVec1),(moveVec2))
 namespace Testing
 {
     void RunTests()
     {
         MoveGen::init_MoveGen();
         BoardState instance;
-        instance.fen_importer(TESTFEN1);
-        MoveGen::update_constants(instance.curBoard);
-        RUN_MOVE_GEN_TEST(1,
-            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0x2C)),         
-            std::vector<Move>
+
+        SHORTEND_MOVE_GEN_TEST
+        (
+            1, //Test number
+            TESTFEN1, //Positon to load (fen)
+            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0x2C)), //move generated
+            std::vector<Move> // expected moves generated
                 ({
                     Moves::encode_move(0x25,0x2C,Magics::PAWN,1),
                     Moves::encode_move(0x25,0x2D,Magics::PAWN,1)
                 })
-            );
-
-        instance = BoardState();
-        instance.fen_importer(TESTFEN2);
-        MoveGen::update_constants(instance.curBoard);
-        RUN_MOVE_GEN_TEST(2,
-            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),         
+        );
+        SHORTEND_MOVE_GEN_TEST
+        (
+            2,
+            TESTFEN2,
+            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x0A,0x12,Magics::PAWN,1)
                 })
-            )
-
-        instance = BoardState();
-        instance.fen_importer(TESTFEN3);
-        MoveGen::update_constants(instance.curBoard);
-        RUN_MOVE_GEN_TEST(3,
-            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),         
+        );
+        SHORTEND_MOVE_GEN_TEST
+        (
+            3,
+            TESTFEN3,
+            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),
             std::vector<Move>({})
-            )
-        
-        instance = BoardState();
-        instance.fen_importer(TESTFEN4);
-        MoveGen::update_constants(instance.curBoard);
-        RUN_MOVE_GEN_TEST(4,
-            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),         
+        );
+        SHORTEND_MOVE_GEN_TEST
+        (
+            4,
+            TESTFEN4,
+            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x24,0x2B,Magics::PAWN,1)
                 })
-            )
-        
-        instance = BoardState();
-        instance.fen_importer(TESTFEN5);
-        MoveGen::update_constants(instance.curBoard);
-        RUN_MOVE_GEN_TEST(5,
-            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),         
+        );
+        SHORTEND_MOVE_GEN_TEST
+        (
+            5,
+            TESTFEN5,
+            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x00,0x09,Magics::PAWN,1)
                 })
-            )
-
-        instance = BoardState();
-        instance.fen_importer(TESTFEN6);
-        MoveGen::update_constants(instance.curBoard);
-        RUN_MOVE_GEN_TEST(6,
-            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),         
+        );
+        SHORTEND_MOVE_GEN_TEST
+        (
+            6,
+            TESTFEN6,
+            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),
             std::vector<Move>({})
-            )
-
-        instance = BoardState();
-        instance.fen_importer(TESTFEN7);
-        MoveGen::update_constants(instance.curBoard);
-        RUN_MOVE_GEN_TEST(7,
-            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),         
+        );
+        SHORTEND_MOVE_GEN_TEST
+        (
+            7,
+            TESTFEN7,
+            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x18,0x21,Magics::PAWN,1),
@@ -109,32 +113,32 @@ namespace Testing
                     Moves::encode_move(0x0F,0x17,Magics::PAWN,1),
                     Moves::encode_move(0x0F,0x1F,Magics::PAWN,1)
                 })
-            )
-        instance = BoardState();
-        instance.fen_importer(TESTFEN8);
-        MoveGen::update_constants(instance.curBoard);
-        RUN_MOVE_GEN_TEST(8,
-            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),         
+        );
+        SHORTEND_MOVE_GEN_TEST
+        (
+            8,
+            TESTFEN8,
+            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x2D,0x35,Magics::PAWN,1),
                 })
-            )
-        instance = BoardState();
-        instance.fen_importer(TESTFEN9);
-        MoveGen::update_constants(instance.curBoard);
-        RUN_MOVE_GEN_TEST(9,
-            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),         
+        );
+        SHORTEND_MOVE_GEN_TEST
+        (
+            9,
+            TESTFEN9,
+            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x16,0x1E,Magics::PAWN,1),
                 })
-            )
-                instance = BoardState();
-        instance.fen_importer(TESTFEN10);
-        MoveGen::update_constants(instance.curBoard);
-        RUN_MOVE_GEN_TEST(10,
-            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),         
+        );      
+        SHORTEND_MOVE_GEN_TEST
+        (
+            10,
+            TESTFEN10,
+            MoveGen::white_pawn_moves(instance.curBoard.whitePawns,index_to_bb(0)),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x08,0x10,Magics::PAWN,1),
@@ -148,7 +152,18 @@ namespace Testing
                     Moves::encode_move(0x0F,0x17,Magics::PAWN,1),
                     Moves::encode_move(0x0F,0x1F,Magics::PAWN,1)
                 })
-            )
+        );
+        SHORTEND_MOVE_GEN_TEST
+        (
+            11,
+            TESTFEN11,
+            MoveGen::black_pawn_moves(instance.curBoard.blackPawns,index_to_bb(0)),
+            std::vector<Move>
+                ({
+                    Moves::encode_move(0x35,0x2D,Magics::PAWN,0),
+                    Moves::encode_move(0x35,0x25,Magics::PAWN,0)
+                })
+        );
     }
 }
 #endif
