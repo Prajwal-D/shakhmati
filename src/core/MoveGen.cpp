@@ -69,7 +69,7 @@ std::vector<Move> MoveGen::black_pawn_moves(BitBoard pawns,BitBoard en_passant_t
         //std::cout << "here\n" << std::endl;
         if ((pawn_move >> index) & 1)
         {
-            possible_moves.push_back(Moves::encode_move((index-8),index,Magics::PAWN,0));
+            possible_moves.push_back(Moves::encode_move((index+8),index,Magics::PAWN,0));
         }
     }
     //generating 2 sq forawrd moves
@@ -78,7 +78,7 @@ std::vector<Move> MoveGen::black_pawn_moves(BitBoard pawns,BitBoard en_passant_t
     {
         if ((pawn_move >> index) & 1)
         {
-            possible_moves.push_back(Moves::encode_move((index-16),index,Magics::PAWN,0));
+            possible_moves.push_back(Moves::encode_move((index+16),index,Magics::PAWN,0));
         }
     }
     //generating all right capturing moves(right capturing from white's perspective)
@@ -87,7 +87,7 @@ std::vector<Move> MoveGen::black_pawn_moves(BitBoard pawns,BitBoard en_passant_t
     {
         if ((pawn_move >> index) & 1)
         {
-            possible_moves.push_back(Moves::encode_move((index-7),index,Magics::PAWN,0));
+            possible_moves.push_back(Moves::encode_move((index+7),index,Magics::PAWN,0));
         }
     }
     //generating all the left capturing moves
@@ -96,7 +96,7 @@ std::vector<Move> MoveGen::black_pawn_moves(BitBoard pawns,BitBoard en_passant_t
     {
         if ((pawn_move >> index) & 1)
         {
-            possible_moves.push_back(Moves::encode_move((index-9),index,Magics::PAWN,0));
+            possible_moves.push_back(Moves::encode_move((index+9),index,Magics::PAWN,0));
         }
     }
     return possible_moves;

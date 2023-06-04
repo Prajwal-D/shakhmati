@@ -117,6 +117,15 @@ namespace Debug
         move_str += (((move & Magics::COLOUR_MASK) >> Magics::COLOUR_SHIFT) == 1) ? "The piece was white" : "The piece was black";
         std::cout << move_str;
     }
+    void short_print_encoded_move_str(Move move)
+    {
+        std::string move_str{""};
+        move_str += "S: " + std::to_string(move & Magics::START_SQ_MASK) + ", ";
+        move_str += "E: " + std::to_string((move & Magics::END_SQ_MASK) >> Magics::END_SQ_SHIFT) + ", ";
+        move_str += "T: " + piece_type_to_str((move & Magics::PIECE_TYPE_MASK) >> Magics::PIECE_TYPE_SHIFT) + ", ";
+        move_str += "C: " + (((move & Magics::COLOUR_MASK) >> Magics::COLOUR_SHIFT) == 1) ? "W" : "B";
+        std::cout << move_str;
+    }
     void print_encoded_move_bin(Move move)
     {
         std::cout << std::bitset<16>(move) << std::endl;

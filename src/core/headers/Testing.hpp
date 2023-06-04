@@ -22,16 +22,17 @@
 #define TESTFEN10 "rnbq1rk1/pp2ppbp/6p1/2pp4/2PPnB2/2N1PN2/PP3PPP/R2QKB1R w KQ - 0 8" //very complicated position taken from queens gambit opening with many possible white pawn moves
   
 //black pawn move gen tests
-#define TESTFEN11 "8/5p2/8/8/8/8/8/8 w - - 0 1"
+#define TESTFEN11 "8/5p2/8/8/8/8/8/8 w - - 0 1" //basic move test, should be able to move forward 1 sq and 2 sqs
+#define TESTFEN12 "r2qnrk1/3nbppp/3pb3/4pPP1/pp2P3/1N2B3/PPPQN2P/2KR1B1R w - - 0 16" //complex positon with many pawn moves availble - does not test en pessant
 
 #define RUN_MOVE_GEN_TEST(testNum, moveVec1, moveVec2)      std::cout <<  "Test number " << (testNum) << " has " << (((moveVec1) == (moveVec2)) ? "PASSED" : "FAILED") << std::endl; \
                                                             if(!((moveVec1) == (moveVec2))) \
                                                             { \
-                                                                std::cout << "\nTest " << (testNum) << " contents: " << std::endl;\
-                                                                std::cout << "Move vector 1 contents: " << std::endl; \
-                                                                for(const Move& i : moveVec1){ Debug::print_encoded_move_str(i); std::cout << std::endl;} \
-                                                                std::cout << "\nMove vector 2 contents: " << std::endl; \
-                                                                for(const Move& i : moveVec2){ Debug::print_encoded_move_str(i); std::cout << std::endl;}; \
+                                                                std::cout << "\nTest " << (testNum) << " contents: " << std::endl; \
+                                                                std::cout << "Move vector 1 contents: (" << (moveVec1).size()  << ")" << std::endl; \
+                                                                for(const Move& i : moveVec1){ Debug::short_print_encoded_move_str(i); std::cout << std::endl;} \
+                                                                std::cout << "\nMove vector 2 contents: (" << (moveVec1).size()  << ")" << std::endl; \
+                                                                for(const Move& i : moveVec2){ Debug::short_print_encoded_move_str(i); std::cout << std::endl;}; \
                                                             }
 
 #define SHORTEND_MOVE_GEN_TEST(testNum, fen, moveVec1, moveVec2)    instance.fen_importer((fen)); \
@@ -163,6 +164,22 @@ namespace Testing
                     Moves::encode_move(0x35,0x25,Magics::PAWN,0)
                 })
         );
+        SHORTEND_MOVE_GEN_TEST
+        (
+            12,
+            TESTFEN12,
+            MoveGen::black_pawn_moves(instance.currentBoards.blackPawns,index_to_bb(0)),
+            std::vector<Move>
+                ({
+                    Moves::encode_move(0x18,0x11,Magics::PAWN,0),
+                    Moves::encode_move(0x18,0x10,Magics::PAWN,0),
+                    Moves::encode_move(0x2B,0x23,Magics::PAWN,0),
+                    Moves::encode_move(0x35,0x2D,Magics::PAWN,0),
+                    Moves::encode_move(0x36,0x2E,Magics::PAWN,0),
+                    Moves::encode_move(0x37,0x2F,Magics::PAWN,0),
+                    Moves::encode_move(0x37,0x27,Magics::PAWN,0)
+                })
+        );        
     }
 }
 #endif
