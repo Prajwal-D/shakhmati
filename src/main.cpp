@@ -30,8 +30,7 @@ int main(void)
     // Debug::print_entire_board(curState.currentBoards);
     // curState.currentBoards.update_full_board();
     // Debug::print_bb(curState.currentBoards.TESTING_ALL_BOARD);
-    //Testing::RunTests();
+    Testing::RunTests();
 
-    Debug::print_bb((BitBoard(1) << 16));
     return 0;
 }

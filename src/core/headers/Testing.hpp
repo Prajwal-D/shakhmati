@@ -10,7 +10,7 @@
 #include "Debug.hpp"
 
 //white pawn move gen tests
-#define TESTFEN1 "8/8/8/4pP2/8/8/8/8 w - - 0 1"     //checks en passant
+#define TESTFEN1 "8/8/8/4pP2/8/8/8/8 w - e6 0 1"     //checks en passant
 #define TESTFEN2 "8/8/8/8/2p5/8/2P5/8 w - - 0 1"    //checks obsticle in way of double move - single move should still work
 #define TESTFEN3 "p7/k7/P7/8/8/8/8/8 w - - 0 1"     //checks with obsticles in way of all moves- should produce no moves returned
 #define TESTFEN4 "8/8/3qp3/4P3/8/8/8/8 w - - 0 1"   //checks left capture with no other possible moves
@@ -49,7 +49,7 @@ namespace Testing
         (
             1, //Test number
             TESTFEN1, //Positon to load (fen)
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,index_to_bb(0x2C)), //move generated
+            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant), //move generated
             std::vector<Move> // expected moves generated
                 ({
                     Moves::encode_move(0x25,0x2C,Magics::PAWN,1),
@@ -60,7 +60,7 @@ namespace Testing
         (
             2,
             TESTFEN2,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,index_to_bb(0)),
+            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x0A,0x12,Magics::PAWN,1)
@@ -70,14 +70,14 @@ namespace Testing
         (
             3,
             TESTFEN3,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,index_to_bb(0)),
+            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
             std::vector<Move>({})
         );
         SHORTEND_MOVE_GEN_TEST
         (
             4,
             TESTFEN4,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,index_to_bb(0)),
+            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x24,0x2B,Magics::PAWN,1)
@@ -87,7 +87,7 @@ namespace Testing
         (
             5,
             TESTFEN5,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,index_to_bb(0)),
+            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x00,0x09,Magics::PAWN,1)
@@ -97,14 +97,14 @@ namespace Testing
         (
             6,
             TESTFEN6,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,index_to_bb(0)),
+            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
             std::vector<Move>({})
         );
         SHORTEND_MOVE_GEN_TEST
         (
             7,
             TESTFEN7,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,index_to_bb(0)),
+            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x18,0x21,Magics::PAWN,1),
@@ -118,7 +118,7 @@ namespace Testing
         (
             8,
             TESTFEN8,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,index_to_bb(0)),
+            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x2D,0x35,Magics::PAWN,1),
@@ -128,7 +128,7 @@ namespace Testing
         (
             9,
             TESTFEN9,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,index_to_bb(0)),
+            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x16,0x1E,Magics::PAWN,1),
@@ -138,7 +138,7 @@ namespace Testing
         (
             10,
             TESTFEN10,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,index_to_bb(0)),
+            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x08,0x10,Magics::PAWN,1),
@@ -157,7 +157,7 @@ namespace Testing
         (
             11,
             TESTFEN11,
-            MoveGen::black_pawn_moves(instance.currentBoards.blackPawns,index_to_bb(0)),
+            MoveGen::black_pawn_moves(instance.currentBoards.blackPawns,instance.enPassant),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x35,0x2D,Magics::PAWN,0),
@@ -168,7 +168,7 @@ namespace Testing
         (
             12,
             TESTFEN12,
-            MoveGen::black_pawn_moves(instance.currentBoards.blackPawns,index_to_bb(0)),
+            MoveGen::black_pawn_moves(instance.currentBoards.blackPawns,instance.enPassant),
             std::vector<Move>
                 ({
                     Moves::encode_move(0x18,0x11,Magics::PAWN,0),
