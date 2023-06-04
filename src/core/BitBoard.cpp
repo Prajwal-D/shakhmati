@@ -12,7 +12,7 @@ std::vector<std::string> BoardState::split(const std::string &stringToSplit, cha
     return result;
 }   
 
-void BoardState::reset_board(){
+constexpr void BoardState::reset_board(){
     currentBoards = AllBoards();
     castling = 0x00;
     whiteTurn = true;
@@ -111,7 +111,9 @@ int BoardState::fen_importer(std::string fen){
         case 'K':
             castling |= 0b00001000;
             break;
-        
+        case 'Q':
+            castling |= 0b00000100;
+            break;
         default:
             break;
         }

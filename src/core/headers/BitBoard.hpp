@@ -50,7 +50,7 @@ struct BoardState
     
 
     AllBoards currentBoards;
-    uint8_t castling; //initialised as 0000 1111, where top 4 bits are ignored
+    uint8_t castling; //initialised as 0000 0000, where top 4 bits are ignored
                       //1111 goes left to right as white king-side, white queen-side, black king-side, black queen-side
     bool whiteTurn;
     int halfMoves;
