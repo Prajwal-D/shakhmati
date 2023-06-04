@@ -41,14 +41,12 @@ struct AllBoards
 
 struct BoardState
 {
-    BoardState():
-    currentBoards(),castling(0x0F),whiteTurn(true), halfMoves(0)
+    constexpr BoardState():
+    currentBoards(),castling(0x00),whiteTurn(true), halfMoves(0)
     {};
-    //You should add [[nodiscard]] specifier to this function 
-    std::vector<std::string> split(const std::string &stringToSplit, char delim);
-    //I have discovered an issue with the fen_importer, if i load 2 FENs, it will keep the previous board state and or the
-    //new board positions ontop. you should reset board values before writing the new fen data to board
-    bool fen_importer(std::string fen);
+    [[nodiscard]] std::vector<std::string> split(const std::string &stringToSplit, char delim);
+    [[nodiscard]] bool fen_importer(std::string fen);
+    constexpr void reset_board();
     
 
     AllBoards currentBoards;

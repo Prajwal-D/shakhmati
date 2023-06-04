@@ -11,9 +11,18 @@ std::vector<std::string> BoardState::split(const std::string &stringToSplit, cha
     }
     return result;
 }   
-bool BoardState::fen_importer(std::string fen)
-{
-    currentBoards.
+
+void BoardState::reset_board(){
+    currentBoards = AllBoards();
+    castling = 0x00;
+    whiteTurn = true;
+    halfMoves = 0;
+    
+}
+
+bool BoardState::fen_importer(std::string fen){
+    
+    reset_board();
 
     std::vector<std::string> fenSections = split(fen, ' ');  
     std::vector<std::string> rankSections;
@@ -82,7 +91,9 @@ bool BoardState::fen_importer(std::string fen)
             curFile++;
         }
         curRank--;  
-    }    
+    }
+    
+        
     return true;
 
 };
