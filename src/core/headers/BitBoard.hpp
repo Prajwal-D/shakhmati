@@ -42,7 +42,7 @@ struct AllBoards
 struct BoardState
 {
     BoardState():
-    curBoard(),castling(0x0F),whiteTurn(true), halfMoves(0)
+    curBoards(),castling(0x0F),whiteTurn(true), halfMoves(0)
     {};
     //You should add [[nodiscard]] specifier to this function 
     std::vector<std::string> split(const std::string &stringToSplit, char delim);
@@ -51,7 +51,7 @@ struct BoardState
     bool fen_importer(std::string fen);
     
 
-    AllBoards curBoard;
+    AllBoards curBoards;
     uint8_t castling; //initialised as 0000 1111, where top 4 bits are ignored
                       //1111 goes left to right as white king-side, white queen-side, black king-side, black queen-side
     bool whiteTurn;
