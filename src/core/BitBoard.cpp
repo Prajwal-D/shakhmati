@@ -17,6 +17,7 @@ constexpr void BoardState::reset_board(){
     castling = 0x00;
     whiteTurn = true;
     halfMoves = 0;
+    enPassant = 0;
     
 }
 
@@ -35,8 +36,7 @@ int BoardState::fen_importer(std::string fen){
     }
 
     int curRank = 7;
-    for (std::string i:rankSections)
-    {
+    for (std::string i:rankSections){
         int curPosInString = 0;
         int curFile = 0;
         
@@ -93,8 +93,7 @@ int BoardState::fen_importer(std::string fen){
         curRank--;  
     }
 
-    switch (fenSections.at(1).at(0))
-    {
+    switch (fenSections.at(1).at(0)){
     case('w'):
         whiteTurn = true;
         break;
@@ -124,6 +123,7 @@ int BoardState::fen_importer(std::string fen){
         }
     }
 
+    if(fenSections.at(3) != "-"){
     assert((static_cast<int>(fenSections.at(3).at(0)) > 96 && static_cast<int>(fenSections.at(3).at(0)) < 105));
     assert((static_cast<int>(fenSections.at(3).at(1)) == 51 || static_cast<int>(fenSections.at(3).at(1)) == 54));
 
@@ -132,6 +132,7 @@ int BoardState::fen_importer(std::string fen){
     enPassantIndex += (fenSections.at(3).at(0)) - 97;
     enPassantIndex += ((fenSections.at(3).at(1) - 48) - 1) * 8;
     enPassant = BitBoard(1) << enPassantIndex;
+    }
 
     halfMoves = std::stoi(fenSections.at(4));
 
