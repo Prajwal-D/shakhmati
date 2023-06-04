@@ -6,12 +6,8 @@
 #include <cstdio>
 #include <vector>
 #include <sstream>
-
-typedef uint64_t BitBoard;
-#define STARTING_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-
-template<typename T>
-constexpr BitBoard index_to_bb(T index){return 1ull << static_cast<unsigned>(index);}
+#include <cassert>
+#include "MagicConstants.hpp"
 
 struct AllBoards
 {

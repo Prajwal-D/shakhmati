@@ -3,6 +3,12 @@
 
 #include "BitBoard.hpp"
 typedef uint32_t PieceType; 
+typedef uint64_t BitBoard;
+#define STARTING_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+
+template<typename T>
+constexpr BitBoard index_to_bb(T index){return 1ull << static_cast<unsigned>(index);}
+
 namespace Magics
 {
     [[nodiscard]] constexpr BitBoard PopLSB(BitBoard board){return board & (board-1);}
@@ -40,24 +46,5 @@ namespace Magics
     constexpr uint16_t END_SQ_SHIFT     = 6;
     constexpr uint16_t PIECE_TYPE_SHIFT = 12;
     constexpr uint16_t COLOUR_SHIFT   = 15;
-
-    //enpassant bitboard locations
-    constexpr BitBoard A3 = 0x0000'0000'0001'0000;
-    constexpr BitBoard B3 = A3 << 1;
-    constexpr BitBoard C3 = B3 << 1;
-    constexpr BitBoard D3 = C3 << 1;
-    constexpr BitBoard E3 = D3 << 1;
-    constexpr BitBoard F3 = E3 << 1;
-    constexpr BitBoard G3 = F3 << 1;
-    constexpr BitBoard H3 = G3 << 1;
-
-    constexpr BitBoard A6 = 0x0000'0100'0000'0000;
-    constexpr BitBoard B6 = A6 << 1;
-    constexpr BitBoard C6 = B6 << 1;
-    constexpr BitBoard D6 = C6 << 1;
-    constexpr BitBoard E6 = D6 << 1;
-    constexpr BitBoard F6 = E6 << 1;
-    constexpr BitBoard G6 = F6 << 1;
-    constexpr BitBoard H6 = G6 << 1;
 }
 #endif 

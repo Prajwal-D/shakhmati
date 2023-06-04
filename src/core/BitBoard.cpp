@@ -102,22 +102,38 @@ int BoardState::fen_importer(std::string fen){
         whiteTurn = false;
     default:
         return -1;
-        break;
     }
 
     for(char i:fenSections.at(2)){
         switch (i)
         {
         case 'K':
-            castling |= 0b00001000;
+            castling |= 0x08;
             break;
         case 'Q':
-            castling |= 0b00000100;
+            castling |= 0x04;
             break;
+        case 'k':
+            castling |= 0x02;
+            break;
+        case 'q':
+            castling |= 0x01;
+            break; 
         default:
-            break;
+            return -1;
         }
     }
+
+    assert((static_cast<int>(fenSections.at(3).at(0)) > 96 && static_cast<int>(fenSections.at(3).at(0)) < 105));
+    assert((static_cast<int>(fenSections.at(3).at(1)) == 51 || static_cast<int>(fenSections.at(3).at(1)) == 54));
+
+
+    int enPassantIndex = 0;
+    enPassantIndex += (fenSections.at(3).at(0)) - 97;
+    enPassantIndex += ((fenSections.at(3).at(1) - 48) - 1) * 8;
+    enPassant = BitBoard(1) << enPassantIndex;
+
+    halfMoves = std::stoi(fenSections.at(4));
 
     return std::stoi(fenSections.at(5));
 
