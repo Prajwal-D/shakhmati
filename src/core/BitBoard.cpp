@@ -13,7 +13,7 @@ std::vector<std::string> BoardState::split(const std::string &stringToSplit, cha
 }   
 bool BoardState::fen_importer(std::string fen)
 {
-    curBoards.
+    currentBoards.
 
     std::vector<std::string> fenSections = split(fen, ' ');  
     std::vector<std::string> rankSections;
@@ -39,40 +39,40 @@ bool BoardState::fen_importer(std::string fen)
             else{
                 switch (curChar){
                 case('p'):
-                    curBoards.blackPawns |= BitBoard(1) << ((curRank * 8) + curFile);
+                    currentBoards.blackPawns |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('n'):
-                    curBoards.blackKnights |= BitBoard(1) << ((curRank * 8) + curFile);
+                    currentBoards.blackKnights |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('b'):
-                    curBoards.blackBishops |= BitBoard(1) << ((curRank * 8) + curFile);
+                    currentBoards.blackBishops |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('r'):
-                    curBoards.blackRooks |= BitBoard(1) << ((curRank * 8) + curFile);
+                    currentBoards.blackRooks |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('q'):
-                    curBoards.blackQueens |= BitBoard(1) << ((curRank * 8) + curFile);
+                    currentBoards.blackQueens |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('k'):
-                    curBoards.blackKings |= BitBoard(1) << ((curRank * 8) + curFile);
+                    currentBoards.blackKings |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('P'):
-                    curBoards.whitePawns |= BitBoard(1) << ((curRank * 8) + curFile);
+                    currentBoards.whitePawns |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('N'):
-                    curBoards.whiteKnights |= BitBoard(1) << ((curRank * 8) + curFile);
+                    currentBoards.whiteKnights |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('B'):
-                    curBoards.whiteBishops |= BitBoard(1) << ((curRank * 8) + curFile);
+                    currentBoards.whiteBishops |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('R'):
-                    curBoards.whiteRooks |= BitBoard(1) << ((curRank * 8) + curFile);
+                    currentBoards.whiteRooks |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('Q'):
-                    curBoards.whiteQueens |= BitBoard(1) << ((curRank * 8) + curFile);
+                    currentBoards.whiteQueens |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 case('K'):
-                    curBoards.whiteKings |= BitBoard(1) << ((curRank * 8) + curFile);
+                    currentBoards.whiteKings |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 default:
                     return false;

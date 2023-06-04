@@ -27,9 +27,9 @@ int main(void)
     
     // BoardState curState;
     // curState.fen_importer("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2");
-    // Debug::print_entire_board(curState.curBoards);
-    // curState.curBoards.update_full_board();
-    // Debug::print_bb(curState.curBoards.TESTING_ALL_BOARD);
+    // Debug::print_entire_board(curState.currentBoards);
+    // curState.currentBoards.update_full_board();
+    // Debug::print_bb(curState.currentBoards.TESTING_ALL_BOARD);
     Testing::RunTests();
 
     return 0;
