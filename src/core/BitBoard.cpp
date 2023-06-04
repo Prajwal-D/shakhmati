@@ -12,7 +12,7 @@ std::vector<std::string> BoardState::split(const std::string &stringToSplit, cha
     return result;
 }   
 
-constexpr void BoardState::reset_board(){
+void BoardState::reset_board(){
     currentBoards = AllBoards();
     castling = 0x00;
     whiteTurn = true;
@@ -20,7 +20,7 @@ constexpr void BoardState::reset_board(){
     
 }
 
-bool BoardState::fen_importer(std::string fen){
+int BoardState::fen_importer(std::string fen){
     
     reset_board();
 
@@ -31,7 +31,7 @@ bool BoardState::fen_importer(std::string fen){
     }
     catch(std::out_of_range& oor){
         std::cout << "Invalid fen! \n";
-        return false;
+        return -1;
     }
 
     int curRank = 7;
@@ -84,7 +84,7 @@ bool BoardState::fen_importer(std::string fen){
                     currentBoards.whiteKings |= BitBoard(1) << ((curRank * 8) + curFile);
                     break;
                 default:
-                    return false;
+                    return -1;
                 }
             } 
             curPosInString++;
@@ -92,9 +92,32 @@ bool BoardState::fen_importer(std::string fen){
         }
         curRank--;  
     }
-    
+
+    switch (fenSections.at(1).at(0))
+    {
+    case('w'):
+        whiteTurn = true;
+        break;
+    case('b'):
+        whiteTurn = false;
+    default:
+        return -1;
+        break;
+    }
+
+    for(char i:fenSections.at(2)){
+        switch (i)
+        {
+        case 'K':
+            castling |= 0b00001000;
+            break;
         
-    return true;
+        default:
+            break;
+        }
+    }
+
+    return std::stoi(fenSections.at(5));
 
 };
 

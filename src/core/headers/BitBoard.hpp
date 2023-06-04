@@ -42,10 +42,10 @@ struct AllBoards
 struct BoardState
 {
     constexpr BoardState():
-    currentBoards(),castling(0x00),whiteTurn(true), halfMoves(0)
+    currentBoards(),castling(0x00),whiteTurn(true), halfMoves(0), enPassant(0ull)
     {};
     [[nodiscard]] std::vector<std::string> split(const std::string &stringToSplit, char delim);
-    bool fen_importer(std::string fen);
+    int fen_importer(std::string fen);
     constexpr void reset_board();
     
 
