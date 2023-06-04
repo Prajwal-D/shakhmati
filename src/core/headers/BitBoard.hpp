@@ -45,7 +45,7 @@ struct BoardState
     currentBoards(),castling(0x00),whiteTurn(true), halfMoves(0)
     {};
     [[nodiscard]] std::vector<std::string> split(const std::string &stringToSplit, char delim);
-    [[nodiscard]] bool fen_importer(std::string fen);
+    bool fen_importer(std::string fen);
     constexpr void reset_board();
     
 

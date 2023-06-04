@@ -12,7 +12,7 @@ std::vector<std::string> BoardState::split(const std::string &stringToSplit, cha
     return result;
 }   
 
-void BoardState::reset_board(){
+constexpr void BoardState::reset_board(){
     currentBoards = AllBoards();
     castling = 0x00;
     whiteTurn = true;

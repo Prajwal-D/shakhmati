@@ -34,8 +34,7 @@
                                                                 for(const Move& i : moveVec2){ Debug::print_encoded_move_str(i); std::cout << std::endl;}; \
                                                             }
 
-#define SHORTEND_MOVE_GEN_TEST(testNum, fen, moveVec1, moveVec2)    instance = BoardState(); \
-                                                                    instance.fen_importer((fen)); \
+#define SHORTEND_MOVE_GEN_TEST(testNum, fen, moveVec1, moveVec2)    instance.fen_importer((fen)); \
                                                                     MoveGen::update_constants(instance.currentBoards); \
                                                                     RUN_MOVE_GEN_TEST((testNum),(moveVec1),(moveVec2))
 namespace Testing
