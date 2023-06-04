@@ -20,7 +20,7 @@ std::vector<Move> MoveGen::white_pawn_moves(BitBoard pawns,BitBoard en_passant_t
 
     //generating 1 sq forward moves
     pawn_move = (pawns << 8) & EMPTY; 
-    for(int index = __builtin_ctzll(pawns);index< 64;++index)
+    for(int index = __builtin_ctzll(pawn_move);index< 64;++index)
     {
         if ((pawn_move >> index) & 1)
         {
@@ -29,7 +29,7 @@ std::vector<Move> MoveGen::white_pawn_moves(BitBoard pawns,BitBoard en_passant_t
     }
     //generating 2 sq forawrd moves
     pawn_move = (pawns << 16) & EMPTY & (EMPTY << 8) & Magics::RANK_4; 
-    for(int index = __builtin_ctzll(pawns);index< 64;++index)
+    for(int index = __builtin_ctzll(pawn_move);index< 64;++index)
     {
         if ((pawn_move >> index) & 1)
         {
@@ -38,7 +38,7 @@ std::vector<Move> MoveGen::white_pawn_moves(BitBoard pawns,BitBoard en_passant_t
     }
     //generating all left capturing moves
     pawn_move = (pawns << 7) & black_pieces_copy & ~Magics::FILE_H;
-    for(int index = __builtin_ctzll(pawns);index< 64;++index)
+    for(int index = __builtin_ctzll(pawn_move);index< 64;++index)
     {
         if ((pawn_move >> index) & 1)
         {
@@ -47,7 +47,7 @@ std::vector<Move> MoveGen::white_pawn_moves(BitBoard pawns,BitBoard en_passant_t
     }
     //generating all the right capturing moves
     pawn_move = (pawns << 9) & black_pieces_copy & ~Magics::FILE_A;
-    for(int index = __builtin_ctzll(pawns);index< 64;++index)
+    for(int index = __builtin_ctzll(pawn_move);index< 64;++index)
     {
         if ((pawn_move >> index) & 1)
         {
@@ -64,7 +64,7 @@ std::vector<Move> MoveGen::black_pawn_moves(BitBoard pawns,BitBoard en_passant_t
 
     //generating 1 sq forward moves
     pawn_move = (pawns >> 8) & EMPTY; 
-    for(int index = __builtin_ctzll(pawns);index< 64;++index)
+    for(int index = __builtin_ctzll(pawn_move);index< 64;++index)
     {
         //std::cout << "here\n" << std::endl;
         if ((pawn_move >> index) & 1)
@@ -74,7 +74,7 @@ std::vector<Move> MoveGen::black_pawn_moves(BitBoard pawns,BitBoard en_passant_t
     }
     //generating 2 sq forawrd moves
     pawn_move = (pawns >> 16) & EMPTY & (EMPTY >> 8) & Magics::RANK_5; 
-    for(int index = __builtin_ctzll(pawns);index< 64;++index)
+    for(int index = __builtin_ctzll(pawn_move);index< 64;++index)
     {
         if ((pawn_move >> index) & 1)
         {
@@ -83,7 +83,7 @@ std::vector<Move> MoveGen::black_pawn_moves(BitBoard pawns,BitBoard en_passant_t
     }
     //generating all right capturing moves(right capturing from white's perspective)
     pawn_move = (pawns >> 7) & white_pieces_copy & ~Magics::FILE_A;
-    for(int index = __builtin_ctzll(pawns);index< 64;++index)
+    for(int index = __builtin_ctzll(pawn_move);index< 64;++index)
     {
         if ((pawn_move >> index) & 1)
         {
@@ -92,7 +92,7 @@ std::vector<Move> MoveGen::black_pawn_moves(BitBoard pawns,BitBoard en_passant_t
     }
     //generating all the left capturing moves
     pawn_move = (pawns >> 9) & white_pieces_copy & ~Magics::FILE_H;
-    for(int index = __builtin_ctzll(pawns);index< 64;++index)
+    for(int index = __builtin_ctzll(pawn_move);index< 64;++index)
     {
         if ((pawn_move >> index) & 1)
         {
