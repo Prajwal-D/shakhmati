@@ -99,13 +99,15 @@ int BoardState::fen_importer(std::string fen){
         break;
     case('b'):
         whiteTurn = false;
+        break;
     default:
         return -1;
     }
 
     for(char i:fenSections.at(2)){
-        switch (i)
-        {
+        switch (i){
+        case '-':
+            break;
         case 'K':
             castling |= 0x08;
             break;
