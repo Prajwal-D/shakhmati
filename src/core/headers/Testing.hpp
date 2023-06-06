@@ -74,7 +74,11 @@ namespace Testing
             3,
             TESTFEN3,
             MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
-            std::vector<Move>({})
+            std::vector<Move>
+                ({
+                    Moves::encode_move(0x25,0x2D,Magics::PAWN,1),
+                    Moves::encode_move(0x25,0x2E,Magics::PAWN,1)
+                })
         );
         SHORTEND_MOVE_GEN_TEST
         (
