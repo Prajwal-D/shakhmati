@@ -10,27 +10,27 @@ namespace Debug
 {
     void PrintBB(BitBoard board, int board_center,bool mirrored=true)
     {
-        std::string output{},someLine{};
+        std::string output{},current_line{};
         for(int row{0}; row < 8; ++row)
         {
             for(int col{0}; col < 8;++col)
             {
                 if((col + row*8) == board_center)
                 {
-                    someLine = mirrored ?   someLine + "X " : "X " + someLine;
+                    current_line = mirrored ?   current_line + "X " : "X " + current_line;
                 }
                 else if(((board >> (col + row*8)))&1ull)
                 {
-                    someLine = mirrored ?   someLine + "1 " : "1 " + someLine ;
+                    current_line = mirrored ?   current_line + "1 " : "1 " + current_line ;
                 }
                 else
                 {
-                    someLine = mirrored ?   someLine + "0 " : "0 " + someLine;
+                    current_line = mirrored ?   current_line + "0 " : "0 " + current_line;
                 }
             }
-            someLine += "|" + std::to_string(row + 1) + " \n";
-            output = someLine + output;
-            someLine = "";
+            current_line += "|" + std::to_string(row + 1) + " \n";
+            output = current_line + output;
+            current_line = "";
         }                    
         output += "----------------\n";
         output += mirrored ? "A B C D E F G H" : "H G F E D C B A";
@@ -38,23 +38,23 @@ namespace Debug
     }
     void PrintBB(BitBoard board, bool mirrored=true)
     {
-        std::string output{},someLine{};
+        std::string output{},current_line{};
         for(int row{0}; row < 8; ++row)
         {
             for(int col{0}; col < 8;++col)
             {
                 if(((board >> (col + row*8)))&1ull)
                 {
-                    someLine = mirrored ?   someLine + "1 " : "1 " + someLine;
+                    current_line = mirrored ?   current_line + "1 " : "1 " + current_line;
                 }
                 else
                 {
-                    someLine = mirrored ?   someLine + "0 " : "0 " + someLine;
+                    current_line = mirrored ?   current_line + "0 " : "0 " + current_line;
                 }
             }
-            someLine += "|" + std::to_string(row + 1) + " \n";
-            output = someLine + output;
-            someLine = "";
+            current_line += "|" + std::to_string(row + 1) + " \n";
+            output = current_line + output;
+            current_line = "";
         }                    
         output += "----------------\n";
         output += mirrored ? "A B C D E F G H" : "H G F E D C B A";

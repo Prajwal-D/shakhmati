@@ -1,9 +1,9 @@
 #include "headers/BitBoard.hpp"
 
-std::vector<std::string> BoardState::Split(const std::string &stringToSplit, char delim) 
+std::vector<std::string> BoardState::Split(const std::string& str_to_split, char delim) 
 {
     std::vector<std::string> result;
-    std::stringstream ss (stringToSplit);
+    std::stringstream ss (str_to_split);
     std::string item;
 
     while (getline(ss, item, delim)) 
@@ -24,11 +24,11 @@ int BoardState::FenImporter(std::string fen)
 {
     ResetBoard();
 
-    std::vector<std::string> fenSections = Split(fen, ' ');  
-    std::vector<std::string> rankSections;
+    std::vector<std::string> fen_sections = Split(fen, ' ');  
+    std::vector<std::string> rank_sections;
     try
     {
-        rankSections = Split(fenSections.at(0), '/');
+        rank_sections = Split(fen_sections.at(0), '/');
     }
     catch(std::out_of_range& oor)
     {
@@ -36,70 +36,70 @@ int BoardState::FenImporter(std::string fen)
         return -1;
     }
 
-    int curRank = 7;
-    for (const std::string& i:rankSections)
+    int current_rank = 7;
+    for (const std::string& i:rank_sections)
     {
-        int curPosInString = 0;
-        int curFile = 0;
+        int pos_in_str = 0;
+        int current_file = 0;
         
-        while(curPosInString < i.size())
+        while(pos_in_str < i.size())
         {
-            char curChar = i.at(curPosInString);
-            if(std::isdigit(curChar))
+            char current_char = i.at(pos_in_str);
+            if(std::isdigit(current_char))
             {
-                curFile += (curChar - '0') - 1;
+                current_file += (current_char - '0') - 1;
             }
             else
             {
-                switch (curChar)
+                switch (current_char)
                 {
                 case('p'):
-                    piece_boards_.black_pawns_ |= BitBoard(1) << ((curRank * 8) + curFile);
+                    piece_boards_.black_pawns_ |= BitBoard(1) << ((current_rank * 8) + current_file);
                     break;
                 case('n'):
-                    piece_boards_.black_knights_ |= BitBoard(1) << ((curRank * 8) + curFile);
+                    piece_boards_.black_knights_ |= BitBoard(1) << ((current_rank * 8) + current_file);
                     break;
                 case('b'):
-                    piece_boards_.black_bishops_ |= BitBoard(1) << ((curRank * 8) + curFile);
+                    piece_boards_.black_bishops_ |= BitBoard(1) << ((current_rank * 8) + current_file);
                     break;
                 case('r'):
-                    piece_boards_.black_rooks_ |= BitBoard(1) << ((curRank * 8) + curFile);
+                    piece_boards_.black_rooks_ |= BitBoard(1) << ((current_rank * 8) + current_file);
                     break;
                 case('q'):
-                    piece_boards_.black_queens_ |= BitBoard(1) << ((curRank * 8) + curFile);
+                    piece_boards_.black_queens_ |= BitBoard(1) << ((current_rank * 8) + current_file);
                     break;
                 case('k'):
-                    piece_boards_.black_kings_ |= BitBoard(1) << ((curRank * 8) + curFile);
+                    piece_boards_.black_kings_ |= BitBoard(1) << ((current_rank * 8) + current_file);
                     break;
                 case('P'):
-                    piece_boards_.white_pawns_ |= BitBoard(1) << ((curRank * 8) + curFile);
+                    piece_boards_.white_pawns_ |= BitBoard(1) << ((current_rank * 8) + current_file);
                     break;
                 case('N'):
-                    piece_boards_.white_knights_ |= BitBoard(1) << ((curRank * 8) + curFile);
+                    piece_boards_.white_knights_ |= BitBoard(1) << ((current_rank * 8) + current_file);
                     break;
                 case('B'):
-                    piece_boards_.white_bishops_ |= BitBoard(1) << ((curRank * 8) + curFile);
+                    piece_boards_.white_bishops_ |= BitBoard(1) << ((current_rank * 8) + current_file);
                     break;
                 case('R'):
-                    piece_boards_.white_rooks_ |= BitBoard(1) << ((curRank * 8) + curFile);
+                    piece_boards_.white_rooks_ |= BitBoard(1) << ((current_rank * 8) + current_file);
                     break;
                 case('Q'):
-                    piece_boards_.white_queens_ |= BitBoard(1) << ((curRank * 8) + curFile);
+                    piece_boards_.white_queens_ |= BitBoard(1) << ((current_rank * 8) + current_file);
                     break;
                 case('K'):
-                    piece_boards_.white_kings_ |= BitBoard(1) << ((curRank * 8) + curFile);
+                    piece_boards_.white_kings_ |= BitBoard(1) << ((current_rank * 8) + current_file);
                     break;
                 default:
                     return -1;
                 }
             } 
-            curPosInString++;
-            curFile++;
+            pos_in_str++;
+            current_file++;
         }
-        curRank--;  
+        current_rank--;  
     }
 
-    switch (fenSections.at(1).at(0))
+    switch (fen_sections.at(1).at(0))
     {
     case('w'):
         white_turn_ = true;
@@ -111,7 +111,7 @@ int BoardState::FenImporter(std::string fen)
         return -1;
     }
 
-    for(char i:fenSections.at(2))
+    for(const char i:fen_sections.at(2))
     {
         switch (i)
         {
@@ -133,18 +133,18 @@ int BoardState::FenImporter(std::string fen)
             return -1;
         }
     }
-    if(fenSections.at(3) != "-")
+    if(fen_sections.at(3) != "-")
     {
-        assert((static_cast<int>(fenSections.at(3).at(0)) > 96 && static_cast<int>(fenSections.at(3).at(0)) < 105));
-        assert((static_cast<int>(fenSections.at(3).at(1)) == 51 || static_cast<int>(fenSections.at(3).at(1)) == 54));
-        int enPassantIndex = 0;
-        enPassantIndex += (fenSections.at(3).at(0)) - 97;
-        enPassantIndex += ((fenSections.at(3).at(1) - 48) - 1) * 8;
-        en_passant_ = BitBoard(1) << enPassantIndex;
+        assert((static_cast<int>(fen_sections.at(3).at(0)) > 96 && static_cast<int>(fen_sections.at(3).at(0)) < 105));
+        assert((static_cast<int>(fen_sections.at(3).at(1)) == 51 || static_cast<int>(fen_sections.at(3).at(1)) == 54));
+        int en_passant_index = 0;
+        en_passant_index += (fen_sections.at(3).at(0)) - 97;
+        en_passant_index += ((fen_sections.at(3).at(1) - 48) - 1) * 8;
+        en_passant_ = BitBoard(1) << en_passant_index;
     }
 
-    half_moves_ = std::stoi(fenSections.at(4));
-    return std::stoi(fenSections.at(5));
+    half_moves_ = std::stoi(fen_sections.at(4));
+    return std::stoi(fen_sections.at(5));
 };
 
 void AllBoards::UpdateFullBoard()
