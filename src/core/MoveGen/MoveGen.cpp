@@ -1,4 +1,7 @@
 #include "headers/MoveGen.hpp"
+BitBoard MoveGen::WHITE_PIECES = 0ull;
+BitBoard MoveGen::BLACK_PIECES = 0ull;
+BitBoard MoveGen::EMPTY = 0ull;
 
 void MoveGen::InitMoveGen()
 {
