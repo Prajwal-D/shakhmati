@@ -33,191 +33,191 @@
                                                             { \
                                                                 std::cout << "\nTest " << (testNum) << " contents: " << std::endl; \
                                                                 std::cout << "Move vector 1 contents: (" << (moveVec1).size()  << ")" << std::endl; \
-                                                                for(const Move& i : moveVec1){ Debug::short_print_encoded_move_str(i); std::cout << std::endl;} \
+                                                                for(const Move& i : moveVec1){ Debug::ShortPrintEncodedMoveStr(i); std::cout << std::endl;} \
                                                                 std::cout << "\nMove vector 2 contents: (" << (moveVec1).size()  << ")" << std::endl; \
-                                                                for(const Move& i : moveVec2){ Debug::short_print_encoded_move_str(i); std::cout << std::endl;}; \
+                                                                for(const Move& i : moveVec2){ Debug::ShortPrintEncodedMoveStr(i); std::cout << std::endl;}; \
                                                             }
 
-#define SHORTEND_MOVE_GEN_TEST(testNum, fen, moveVec1, moveVec2)    instance.fen_importer((fen)); \
-                                                                    MoveGen::update_constants(instance.currentBoards); \
+#define SHORTEND_MOVE_GEN_TEST(testNum, fen, moveVec1, moveVec2)    instance.FenImporter((fen)); \
+                                                                    MoveGen::UpdateConstants(instance.piece_boards_); \
                                                                     RUN_MOVE_GEN_TEST((testNum),(moveVec1),(moveVec2))
 namespace Testing
 {
     void RunTests()
     {
-        MoveGen::init_MoveGen();
+        MoveGen::InitMoveGen();
         BoardState instance;
 
         SHORTEND_MOVE_GEN_TEST
         (
             1, //Test number
             TESTFEN1, //Positon to load (fen)
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant), //move generated
+            MoveGen::WhitePawnMoves(instance.piece_boards_.white_pawns_,instance.en_passant_), //move generated
             std::vector<Move> // expected moves generated
                 ({
-                    Moves::encode_move(0x25,0x2C,Magics::PAWN,1),
-                    Moves::encode_move(0x25,0x2D,Magics::PAWN,1)
+                    Moves::EncodeMove(0x25,0x2C,Magics::PAWN,1),
+                    Moves::EncodeMove(0x25,0x2D,Magics::PAWN,1)
                 })
         );
         SHORTEND_MOVE_GEN_TEST
         (
             2,
             TESTFEN2,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
+            MoveGen::WhitePawnMoves(instance.piece_boards_.white_pawns_,instance.en_passant_),
             std::vector<Move>
                 ({
-                    Moves::encode_move(0x0A,0x12,Magics::PAWN,1)
+                    Moves::EncodeMove(0x0A,0x12,Magics::PAWN,1)
                 })
         );
         SHORTEND_MOVE_GEN_TEST
         (
             3,
             TESTFEN3,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
+            MoveGen::WhitePawnMoves(instance.piece_boards_.white_pawns_,instance.en_passant_),
             std::vector<Move>({})
         );
         SHORTEND_MOVE_GEN_TEST
         (
             4,
             TESTFEN4,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
+            MoveGen::WhitePawnMoves(instance.piece_boards_.white_pawns_,instance.en_passant_),
             std::vector<Move>
                 ({
-                    Moves::encode_move(0x24,0x2B,Magics::PAWN,1)
+                    Moves::EncodeMove(0x24,0x2B,Magics::PAWN,1)
                 })
         );
         SHORTEND_MOVE_GEN_TEST
         (
             5,
             TESTFEN5,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
+            MoveGen::WhitePawnMoves(instance.piece_boards_.white_pawns_,instance.en_passant_),
             std::vector<Move>
                 ({
-                    Moves::encode_move(0x00,0x09,Magics::PAWN,1)
+                    Moves::EncodeMove(0x00,0x09,Magics::PAWN,1)
                 })
         );
         SHORTEND_MOVE_GEN_TEST
         (
             6,
             TESTFEN6,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
+            MoveGen::WhitePawnMoves(instance.piece_boards_.white_pawns_,instance.en_passant_),
             std::vector<Move>({})
         );
         SHORTEND_MOVE_GEN_TEST
         (
             7,
             TESTFEN7,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
+            MoveGen::WhitePawnMoves(instance.piece_boards_.white_pawns_,instance.en_passant_),
             std::vector<Move>
                 ({
-                    Moves::encode_move(0x18,0x21,Magics::PAWN,1),
-                    Moves::encode_move(0x0A,0x12,Magics::PAWN,1),
-                    Moves::encode_move(0x0F,0x16,Magics::PAWN,1),
-                    Moves::encode_move(0x0F,0x17,Magics::PAWN,1),
-                    Moves::encode_move(0x0F,0x1F,Magics::PAWN,1)
+                    Moves::EncodeMove(0x18,0x21,Magics::PAWN,1),
+                    Moves::EncodeMove(0x0A,0x12,Magics::PAWN,1),
+                    Moves::EncodeMove(0x0F,0x16,Magics::PAWN,1),
+                    Moves::EncodeMove(0x0F,0x17,Magics::PAWN,1),
+                    Moves::EncodeMove(0x0F,0x1F,Magics::PAWN,1)
                 })
         );
         SHORTEND_MOVE_GEN_TEST
         (
             8,
             TESTFEN8,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
+            MoveGen::WhitePawnMoves(instance.piece_boards_.white_pawns_,instance.en_passant_),
             std::vector<Move>
                 ({
-                    Moves::encode_move(0x2D,0x35,Magics::PAWN,1),
+                    Moves::EncodeMove(0x2D,0x35,Magics::PAWN,1),
                 })
         );
         SHORTEND_MOVE_GEN_TEST
         (
             9,
             TESTFEN9,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
+            MoveGen::WhitePawnMoves(instance.piece_boards_.white_pawns_,instance.en_passant_),
             std::vector<Move>
                 ({
-                    Moves::encode_move(0x16,0x1E,Magics::PAWN,1),
+                    Moves::EncodeMove(0x16,0x1E,Magics::PAWN,1),
                 })
         );      
         SHORTEND_MOVE_GEN_TEST
         (
             10,
             TESTFEN10,
-            MoveGen::white_pawn_moves(instance.currentBoards.whitePawns,instance.enPassant),
+            MoveGen::WhitePawnMoves(instance.piece_boards_.white_pawns_,instance.en_passant_),
             std::vector<Move>
                 ({
-                    Moves::encode_move(0x08,0x10,Magics::PAWN,1),
-                    Moves::encode_move(0x08,0x18,Magics::PAWN,1),
-                    Moves::encode_move(0x09,0x11,Magics::PAWN,1),
-                    Moves::encode_move(0x09,0x19,Magics::PAWN,1),
-                    Moves::encode_move(0x1A,0x23,Magics::PAWN,1),
-                    Moves::encode_move(0x1B,0x22,Magics::PAWN,1),
-                    Moves::encode_move(0x0E,0x16,Magics::PAWN,1),
-                    Moves::encode_move(0x0E,0x1E,Magics::PAWN,1),
-                    Moves::encode_move(0x0F,0x17,Magics::PAWN,1),
-                    Moves::encode_move(0x0F,0x1F,Magics::PAWN,1)
+                    Moves::EncodeMove(0x08,0x10,Magics::PAWN,1),
+                    Moves::EncodeMove(0x08,0x18,Magics::PAWN,1),
+                    Moves::EncodeMove(0x09,0x11,Magics::PAWN,1),
+                    Moves::EncodeMove(0x09,0x19,Magics::PAWN,1),
+                    Moves::EncodeMove(0x1A,0x23,Magics::PAWN,1),
+                    Moves::EncodeMove(0x1B,0x22,Magics::PAWN,1),
+                    Moves::EncodeMove(0x0E,0x16,Magics::PAWN,1),
+                    Moves::EncodeMove(0x0E,0x1E,Magics::PAWN,1),
+                    Moves::EncodeMove(0x0F,0x17,Magics::PAWN,1),
+                    Moves::EncodeMove(0x0F,0x1F,Magics::PAWN,1)
                 })
         );
         SHORTEND_MOVE_GEN_TEST
         (
             11,
             TESTFEN11,
-            MoveGen::black_pawn_moves(instance.currentBoards.blackPawns,instance.enPassant),
+            MoveGen::BlackPawnMoves(instance.piece_boards_.black_pawns_,instance.en_passant_),
             std::vector<Move>
                 ({
-                    Moves::encode_move(0x35,0x2D,Magics::PAWN,0),
-                    Moves::encode_move(0x35,0x25,Magics::PAWN,0)
+                    Moves::EncodeMove(0x35,0x2D,Magics::PAWN,0),
+                    Moves::EncodeMove(0x35,0x25,Magics::PAWN,0)
                 })
         );
         SHORTEND_MOVE_GEN_TEST
         (
             12,
             TESTFEN12,
-            MoveGen::black_pawn_moves(instance.currentBoards.blackPawns,instance.enPassant),
+            MoveGen::BlackPawnMoves(instance.piece_boards_.black_pawns_,instance.en_passant_),
             std::vector<Move>
                 ({
-                    Moves::encode_move(0x18,0x11,Magics::PAWN,0),
-                    Moves::encode_move(0x18,0x10,Magics::PAWN,0),
-                    Moves::encode_move(0x2B,0x23,Magics::PAWN,0),
-                    Moves::encode_move(0x35,0x2D,Magics::PAWN,0),
-                    Moves::encode_move(0x36,0x2E,Magics::PAWN,0),
-                    Moves::encode_move(0x37,0x2F,Magics::PAWN,0),
-                    Moves::encode_move(0x37,0x27,Magics::PAWN,0)
+                    Moves::EncodeMove(0x18,0x11,Magics::PAWN,0),
+                    Moves::EncodeMove(0x18,0x10,Magics::PAWN,0),
+                    Moves::EncodeMove(0x2B,0x23,Magics::PAWN,0),
+                    Moves::EncodeMove(0x35,0x2D,Magics::PAWN,0),
+                    Moves::EncodeMove(0x36,0x2E,Magics::PAWN,0),
+                    Moves::EncodeMove(0x37,0x2F,Magics::PAWN,0),
+                    Moves::EncodeMove(0x37,0x27,Magics::PAWN,0)
                 })
         );
         SHORTEND_MOVE_GEN_TEST
         (
             13,
             TESTFEN13,
-            MoveGen::black_pawn_moves(instance.currentBoards.blackPawns,instance.enPassant),
+            MoveGen::BlackPawnMoves(instance.piece_boards_.black_pawns_,instance.en_passant_),
             std::vector<Move>
                 ({
-                    Moves::encode_move(0x30,0x28,Magics::PAWN,0),
-                    Moves::encode_move(0x30,0x20,Magics::PAWN,0),
-                    Moves::encode_move(0x21,0x18,Magics::PAWN,0),
-                    Moves::encode_move(0x21,0x19,Magics::PAWN,0),
-                    Moves::encode_move(0x35,0x2D,Magics::PAWN,0),
-                    Moves::encode_move(0x0F,0x07,Magics::PAWN,0)
+                    Moves::EncodeMove(0x30,0x28,Magics::PAWN,0),
+                    Moves::EncodeMove(0x30,0x20,Magics::PAWN,0),
+                    Moves::EncodeMove(0x21,0x18,Magics::PAWN,0),
+                    Moves::EncodeMove(0x21,0x19,Magics::PAWN,0),
+                    Moves::EncodeMove(0x35,0x2D,Magics::PAWN,0),
+                    Moves::EncodeMove(0x0F,0x07,Magics::PAWN,0)
                 })
         );
         SHORTEND_MOVE_GEN_TEST
         (
             14,
             TESTFEN14,
-            MoveGen::black_pawn_moves(instance.currentBoards.blackPawns,instance.enPassant),
+            MoveGen::BlackPawnMoves(instance.piece_boards_.black_pawns_,instance.en_passant_),
             std::vector<Move>
                 ({
-                    Moves::encode_move(0x1B,0x14,Magics::PAWN,0),
-                    Moves::encode_move(0x1B,0x13,Magics::PAWN,0)
+                    Moves::EncodeMove(0x1B,0x14,Magics::PAWN,0),
+                    Moves::EncodeMove(0x1B,0x13,Magics::PAWN,0)
                 })
         );
         SHORTEND_MOVE_GEN_TEST
         (
             15,
             TESTFEN15,
-            MoveGen::black_pawn_moves(instance.currentBoards.blackPawns,instance.enPassant),
+            MoveGen::BlackPawnMoves(instance.piece_boards_.black_pawns_,instance.en_passant_),
             std::vector<Move>
                 ({
-                    Moves::encode_move(0x1D,0x14,Magics::PAWN,0),
-                    Moves::encode_move(0x1D,0x15,Magics::PAWN,0)
+                    Moves::EncodeMove(0x1D,0x14,Magics::PAWN,0),
+                    Moves::EncodeMove(0x1D,0x15,Magics::PAWN,0)
                 })
         );
     }
