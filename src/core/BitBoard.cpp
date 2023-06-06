@@ -42,7 +42,7 @@ int BoardState::FenImporter(std::string fen)
         int pos_in_str = 0;
         int current_file = 0;
         
-        while(pos_in_str < i.size())
+        while(static_cast<std::size_t>(pos_in_str) < i.size())
         {
             char current_char = i.at(pos_in_str);
             if(std::isdigit(current_char))

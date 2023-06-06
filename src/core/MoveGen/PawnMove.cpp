@@ -4,10 +4,10 @@ std::vector<Move> MoveGen::WhitePawnMoves(BitBoard pawns,BitBoard en_passant_tar
 {
     std::vector<Move> possible_moves{};
     BitBoard pawn_move{0};
-    const BitBoard black_pieces_copy = BLACK_PIECES | en_passant_target_sq;
+    const BitBoard black_pieces_copy = black_pieces_ | en_passant_target_sq;
 
     //generating 1 sq forward moves
-    pawn_move = (pawns << 8) & EMPTY; 
+    pawn_move = (pawns << 8) & empty_squares_; 
     for(int index = __builtin_ctzll(pawn_move);index< 64;++index)
     {
         if ((pawn_move >> index) & 1)
@@ -16,7 +16,7 @@ std::vector<Move> MoveGen::WhitePawnMoves(BitBoard pawns,BitBoard en_passant_tar
         }
     }
     //generating 2 sq forawrd moves
-    pawn_move = (pawns << 16) & EMPTY & (EMPTY << 8) & Magics::RANK_4; 
+    pawn_move = (pawns << 16) & empty_squares_ & (empty_squares_ << 8) & Magics::RANK_4; 
     for(int index = __builtin_ctzll(pawn_move);index< 64;++index)
     {
         if ((pawn_move >> index) & 1)
@@ -48,10 +48,10 @@ std::vector<Move> MoveGen::BlackPawnMoves(BitBoard pawns,BitBoard en_passant_tar
 {
     std::vector<Move> possible_moves{};
     BitBoard pawn_move{0};
-    const BitBoard white_pieces_copy = WHITE_PIECES | en_passant_target_sq;
+    const BitBoard white_pieces_copy = white_pieces_ | en_passant_target_sq;
 
     //generating 1 sq forward moves
-    pawn_move = (pawns >> 8) & EMPTY; 
+    pawn_move = (pawns >> 8) & empty_squares_; 
     for(int index = __builtin_ctzll(pawn_move);index< 64;++index)
     {
         //std::cout << "here\n" << std::endl;
@@ -61,7 +61,7 @@ std::vector<Move> MoveGen::BlackPawnMoves(BitBoard pawns,BitBoard en_passant_tar
         }
     }
     //generating 2 sq forawrd moves
-    pawn_move = (pawns >> 16) & EMPTY & (EMPTY >> 8) & Magics::RANK_5; 
+    pawn_move = (pawns >> 16) & empty_squares_ & (empty_squares_ >> 8) & Magics::RANK_5; 
     for(int index = __builtin_ctzll(pawn_move);index< 64;++index)
     {
         if ((pawn_move >> index) & 1)

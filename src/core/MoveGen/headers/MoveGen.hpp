@@ -7,9 +7,9 @@
 
 namespace MoveGen
 {
-    extern BitBoard WHITE_PIECES;
-    extern BitBoard BLACK_PIECES;
-    extern BitBoard EMPTY;
+    extern BitBoard white_pieces_;
+    extern BitBoard black_pieces_;
+    extern BitBoard empty_squares_;
     void InitMoveGen();
     void UpdateConstants(const AllBoards& b);
     std::vector<Move> WhitePawnMoves(BitBoard pawns,BitBoard en_passant_target_sq);
