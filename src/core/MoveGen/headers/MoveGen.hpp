@@ -1,8 +1,8 @@
 #ifndef MOVEGEN_HPP
 #define MOVEGEN_HPP
 
-#include "BitBoard.hpp"
-#include "Move.hpp"
+#include "../../headers/BitBoard.hpp"
+#include "../../headers/Move.hpp"
 #include <vector>
 
 namespace MoveGen

@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "BitBoard.hpp"
-#include "MoveGen.hpp"
+#include "../MoveGen/headers/MoveGen.hpp"
 #include "Move.hpp"
 #include "Debug.hpp"
 
