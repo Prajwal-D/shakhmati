@@ -10,9 +10,9 @@
 #include "Debug.hpp"
 
 //white pawn move gen tests
-#define TESTFEN1 "8/8/8/4pP2/8/8/8/8 w - e6 0 1"     //checks en passant
+#define TESTFEN1 "8/8/8/4pP2/8/8/8/8 w - e6 0 1"     //checks left capturing en passant
 #define TESTFEN2 "8/8/8/8/2p5/8/2P5/8 w - - 0 1"    //checks obsticle in way of double move - single move should still work
-#define TESTFEN3 "p7/k7/P7/8/8/8/8/8 w - - 0 1"     //checks with obsticles in way of all moves- should produce no moves returned
+#define TESTFEN3 "8/8/8/5Pp1/8/8/8/8 w - g6 0 1"     //checks right capturing en passant 
 #define TESTFEN4 "8/8/3qp3/4P3/8/8/8/8 w - - 0 1"   //checks left capture with no other possible moves
 #define TESTFEN5 "8/8/8/8/8/8/rb6/Pr6 w - - 0 1"    //checks right capture with no other possible moves
 #define TESTFEN6 "8/8/8/8/8/8/r7/Pr6 w - - 0 1"     //checks another position with no possible moves
@@ -24,6 +24,9 @@
 //black pawn move gen tests
 #define TESTFEN11 "8/5p2/8/8/8/8/8/8 w - - 0 1" //basic move test, should be able to move forward 1 sq and 2 sqs
 #define TESTFEN12 "r2qnrk1/3nbppp/3pb3/4pPP1/pp2P3/1N2B3/PPPQN2P/2KR1B1R w - - 0 16" //complex positon with many pawn moves availble - does not test en pessant
+#define TESTFEN13 "8/p1p2p2/2K5/1p3K2/K2p4/3K4/7p/8 w - - 0 1" //another large test 
+#define TESTFEN14 "8/8/8/8/3pP3/8/8/8 w - e3 0 1" //right capture (from whites perspective) en passant
+#define TESTFEN15 "8/8/8/8/4Pp2/8/8/8 w - e3 0 1" //left caputre (from whites perspective) en passant
 
 #define RUN_MOVE_GEN_TEST(testNum, moveVec1, moveVec2)      std::cout <<  "Test number " << (testNum) << " has " << (((moveVec1) == (moveVec2)) ? "PASSED" : "FAILED") << std::endl; \
                                                             if(!((moveVec1) == (moveVec2))) \
@@ -179,7 +182,44 @@ namespace Testing
                     Moves::encode_move(0x37,0x2F,Magics::PAWN,0),
                     Moves::encode_move(0x37,0x27,Magics::PAWN,0)
                 })
-        );        
+        );
+        SHORTEND_MOVE_GEN_TEST
+        (
+            13,
+            TESTFEN13,
+            MoveGen::black_pawn_moves(instance.currentBoards.blackPawns,instance.enPassant),
+            std::vector<Move>
+                ({
+                    Moves::encode_move(0x30,0x28,Magics::PAWN,0),
+                    Moves::encode_move(0x30,0x20,Magics::PAWN,0),
+                    Moves::encode_move(0x21,0x18,Magics::PAWN,0),
+                    Moves::encode_move(0x21,0x19,Magics::PAWN,0),
+                    Moves::encode_move(0x35,0x2D,Magics::PAWN,0),
+                    Moves::encode_move(0x0F,0x07,Magics::PAWN,0)
+                })
+        );
+        SHORTEND_MOVE_GEN_TEST
+        (
+            14,
+            TESTFEN14,
+            MoveGen::black_pawn_moves(instance.currentBoards.blackPawns,instance.enPassant),
+            std::vector<Move>
+                ({
+                    Moves::encode_move(0x1B,0x14,Magics::PAWN,0),
+                    Moves::encode_move(0x1B,0x13,Magics::PAWN,0)
+                })
+        );
+        SHORTEND_MOVE_GEN_TEST
+        (
+            15,
+            TESTFEN15,
+            MoveGen::black_pawn_moves(instance.currentBoards.blackPawns,instance.enPassant),
+            std::vector<Move>
+                ({
+                    Moves::encode_move(0x1D,0x14,Magics::PAWN,0),
+                    Moves::encode_move(0x1D,0x15,Magics::PAWN,0)
+                })
+        );
     }
 }
 #endif
